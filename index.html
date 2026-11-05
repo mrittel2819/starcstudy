@@ -1,0 +1,1907 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  STAR-C RCT — STUDY TEAM RESOURCE SITE (v3 mockup)
+  Five sections, single file, static, host-anywhere.
+  
+  Content draws on:
+    - Turkstra et al. (2025) STAR-C pilot, AJSLP / PubMed 39853133
+    - C4 questionnaire paper, Frontiers in Neurology (2025)
+  
+  Edit content in plain HTML; structure should hold steady.
+  ============================================================
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<meta name="supported-color-schemes" content="light">
+<title>STAR-C RCT — Study Team Resource Site</title>
+<meta name="description" content="Study team resource site for the STAR-C RCT — a three-arm trial of in-person and telehealth cognitive rehabilitation for adults with mTBI.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --paper:    #FAF7F0;
+  --paper-2:  #F1ECDE;
+  --ink:      #14202F;     /* deep navy */
+  --ink-2:    #2F3B4D;     /* darker than before for legibility */
+  --ink-3:    #545E6E;     /* darker than before */
+  --accent:   #2E5C4A;     /* forest */
+  --accent-2: #A56A3D;     /* warm tan */
+  --rule:     #C9C0AE;
+  --good:     #2E7D43;
+
+  --serif: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --sans:  'Inter', system-ui, sans-serif;
+  --mono:  'JetBrains Mono', ui-monospace, monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.65;
+  letter-spacing: -0.003em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* paper grain removed for clarity */
+
+::selection { background: var(--accent); color: var(--paper); }
+
+a { color: inherit; }
+
+.wrap { max-width: 1220px; margin: 0 auto; padding: 0 40px; }
+@media (max-width: 880px) { .wrap { padding: 0 36px; } }
+@media (max-width: 540px) { .wrap { padding: 0 28px; } }
+
+/* ============ NAV ============ */
+nav.top {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(250, 247, 240, 0.96);
+  backdrop-filter: saturate(180%) blur(10px);
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid var(--rule);
+}
+nav.top .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  gap: 24px;
+}
+.brand {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 20px;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: var(--ink);
+  font-variation-settings: 'opsz' 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.brand .wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+}
+.brand .lone-star {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  display: block;
+}
+.brand em {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+.foot-brand .brand .lone-star { width: 28px; height: 28px; }
+.nav-links { display: flex; gap: 28px; align-items: center; list-style: none; }
+.nav-links a {
+  color: var(--ink-2);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  position: relative;
+  padding: 4px 0;
+  transition: color .2s ease;
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -2px;
+  width: 0; height: 1px;
+  background: var(--accent);
+  transition: width .3s cubic-bezier(.2,.8,.2,1);
+}
+.nav-links a:hover::after,
+.nav-links a.active::after { width: 100%; }
+.nav-links a.active { color: var(--ink); }
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 10px;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--ink-2);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.status-pill .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--good);
+  box-shadow: 0 0 0 0 rgba(46, 125, 67, 0.55);
+  animation: pulse 2.4s infinite;
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(46, 125, 67, 0.6); }
+  70%  { box-shadow: 0 0 0 9px rgba(46, 125, 67, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(46, 125, 67, 0); }
+}
+
+@media (max-width: 880px) {
+  .nav-links { gap: 18px; }
+  .nav-links a { font-size: 13px; }
+}
+@media (max-width: 720px) {
+  .nav-links { display: none; }
+  .status-pill { font-size: 10px; }
+}
+
+/* ============ HERO ============ */
+.hero { padding-top: 96px; padding-bottom: 76px; position: relative; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 32px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-weight: 500;
+}
+.kicker::before {
+  content: '';
+  width: 30px;
+  height: 1px;
+  background: var(--accent);
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-weight: 350;
+  font-size: clamp(44px, 7.4vw, 100px);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  font-variation-settings: 'opsz' 144;
+  max-width: 18ch;
+  color: var(--ink);
+  margin-bottom: 36px;
+}
+.hero h1 em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--accent);
+  font-variation-settings: 'opsz' 144;
+}
+.lede {
+  font-family: var(--serif);
+  font-size: clamp(18px, 1.6vw, 22px);
+  line-height: 1.5;
+  font-weight: 350;
+  font-variation-settings: 'opsz' 14;
+  max-width: 58ch;
+  color: var(--ink-2);
+  margin-bottom: 44px;
+}
+.hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 24px;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  text-decoration: none;
+  border: 1px solid;
+  cursor: pointer;
+  transition: background .25s, color .25s, border-color .25s;
+}
+.btn-primary {
+  background: var(--ink); color: var(--paper); border-color: var(--ink);
+}
+.btn-primary:hover { background: var(--accent); border-color: var(--accent); }
+.btn-ghost {
+  background: transparent; color: var(--ink); border-color: var(--ink);
+}
+.btn-ghost:hover { background: var(--ink); color: var(--paper); }
+.btn .arrow { transition: transform .25s ease; display: inline-block; }
+.btn:hover .arrow { transform: translateX(5px); }
+
+/* ============ AT-A-GLANCE STRIP ============ */
+.glance {
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding-top: 52px;
+  padding-bottom: 52px;
+  margin: 12px 0;
+}
+.glance-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 44px;
+}
+.glance-item .label {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 12px;
+}
+.glance-item .value {
+  font-family: var(--serif);
+  font-size: clamp(32px, 3.6vw, 50px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  font-variation-settings: 'opsz' 144;
+}
+.glance-item .value em {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 300;
+}
+.glance-item .sub {
+  font-size: 13px;
+  color: var(--ink-3);
+  margin-top: 8px;
+}
+@media (max-width: 720px) {
+  .glance-grid { grid-template-columns: 1fr 1fr; gap: 28px 24px; }
+}
+
+/* ============ SECTION COMMON ============ */
+section.block { padding-top: 92px; padding-bottom: 92px; }
+
+.section-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-weight: 500;
+}
+.section-label::before {
+  content: '';
+  width: 30px;
+  height: 1px;
+  background: var(--accent);
+}
+.section-title {
+  font-family: var(--serif);
+  font-weight: 350;
+  font-size: clamp(34px, 4.4vw, 64px);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  font-variation-settings: 'opsz' 144;
+  max-width: 22ch;
+  margin-bottom: 48px;
+}
+.section-title em {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 300;
+}
+
+/* ============ ABOUT SIDECARD SPLIT ============ */
+.split-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 72px;
+}
+.prose p {
+  font-family: var(--serif);
+  font-size: 18.5px;
+  line-height: 1.62;
+  color: var(--ink-2);
+  margin-bottom: 22px;
+  font-variation-settings: 'opsz' 14;
+  font-weight: 350;
+}
+.prose em { color: var(--accent); font-style: italic; }
+.prose strong { color: var(--ink); font-weight: 500; }
+
+.sidecard {
+  background: var(--paper-2);
+  padding: 30px;
+  align-self: start;
+  border: 1px solid var(--rule);
+  position: sticky;
+  top: 92px;
+}
+.sidecard h3 {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--rule);
+}
+.fact { padding: 12px 0; border-bottom: 1px dashed var(--rule); }
+.fact:last-child { border-bottom: none; padding-bottom: 0; }
+.fact .k {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-3);
+  margin-bottom: 4px;
+}
+.fact .v {
+  font-family: var(--serif);
+  font-size: 16px;
+  color: var(--ink);
+  font-weight: 400;
+  font-variation-settings: 'opsz' 14;
+  line-height: 1.35;
+}
+@media (max-width: 880px) {
+  .split-grid { grid-template-columns: 1fr; gap: 44px; }
+  .sidecard { position: static; }
+}
+
+/* ============ QUICK ACCESS CARDS ============ */
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+.quick {
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  padding: 28px 24px 22px;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--ink);
+  transition: transform .25s, box-shadow .25s, border-color .25s, background .25s;
+  position: relative;
+  min-height: 200px;
+}
+.quick:hover {
+  background: var(--paper);
+  border-color: var(--ink);
+  transform: translateY(-4px);
+  box-shadow: 5px 7px 0 -2px var(--ink);
+}
+.quick .num {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 30px;
+  font-weight: 300;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 20px;
+  font-variation-settings: 'opsz' 144;
+}
+.quick h4 {
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1.22;
+  margin-bottom: 10px;
+  font-variation-settings: 'opsz' 36;
+  letter-spacing: -0.005em;
+}
+.quick p {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--ink-2);
+  flex: 1;
+}
+.quick .go {
+  margin-top: 18px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  font-weight: 500;
+}
+@media (max-width: 880px) { .quick-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 540px) { .quick-grid { grid-template-columns: 1fr; } }
+
+/* ============ DARK BAND ============ */
+.dark-band {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 92px 0;
+  position: relative;
+  overflow: hidden;
+}
+.dark-band::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 18% 40%, rgba(46, 92, 74, 0.28), transparent 55%),
+    radial-gradient(circle at 82% 80%, rgba(232, 213, 168, 0.07), transparent 50%);
+  pointer-events: none;
+}
+.dark-band .wrap { position: relative; }
+.dark-band .section-label { color: rgba(232, 213, 168, 0.7); }
+.dark-band .section-label::before { background: rgba(232, 213, 168, 0.4); }
+.dark-band h2 {
+  font-family: var(--serif);
+  font-weight: 350;
+  font-size: clamp(34px, 4.4vw, 64px);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  margin-bottom: 28px;
+  font-variation-settings: 'opsz' 144;
+  max-width: 18ch;
+}
+.dark-band h2 em { font-style: italic; color: #C9A875; font-weight: 300; }
+.dark-band p {
+  font-family: var(--serif);
+  font-size: 19px;
+  line-height: 1.5;
+  max-width: 58ch;
+  color: rgba(244, 240, 232, 0.82);
+  margin-bottom: 36px;
+  font-weight: 350;
+  font-variation-settings: 'opsz' 14;
+}
+.dark-band .btn-primary {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--paper);
+}
+.dark-band .btn-primary:hover {
+  background: #C9A875;
+  color: var(--ink);
+  border-color: #C9A875;
+}
+
+/* ============ FOOTER ============ */
+footer {
+  border-top: 1px solid var(--rule);
+  padding: 56px 0 28px;
+  margin-top: 12px;
+}
+.foot-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 48px;
+}
+.foot-brand .brand { font-size: 24px; }
+.foot-brand p {
+  font-size: 13.5px;
+  color: var(--ink-3);
+  margin-top: 14px;
+  max-width: 36ch;
+  line-height: 1.6;
+}
+.foot-col h5 {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+.foot-col a {
+  display: block;
+  color: var(--ink-2);
+  text-decoration: none;
+  font-size: 14px;
+  margin-bottom: 9px;
+  transition: color .2s ease;
+}
+.foot-col a:hover { color: var(--accent); }
+.foot-bottom {
+  border-top: 1px solid var(--rule);
+  padding-top: 22px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--ink-3);
+  font-family: var(--mono);
+  letter-spacing: 0.06em;
+}
+@media (max-width: 880px) {
+  .foot-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+}
+@media (max-width: 540px) {
+  .foot-grid { grid-template-columns: 1fr; gap: 32px; }
+  .foot-bottom { flex-direction: column; gap: 8px; }
+}
+
+/* ============ ROUTER PAGES ============ */
+.page { display: none; }
+.page.active { display: block; animation: pageIn .5s cubic-bezier(.2,.8,.2,1); }
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============ GENERIC PAGE HEADER ============ */
+.page-header { padding-top: 92px; padding-bottom: 56px; }
+.page-header h1 {
+  font-family: var(--serif);
+  font-weight: 350;
+  font-size: clamp(46px, 6.4vw, 86px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variation-settings: 'opsz' 144;
+  margin-bottom: 28px;
+  max-width: 18ch;
+}
+.page-header h1 em { font-style: italic; color: var(--accent); font-weight: 300; }
+.page-header p {
+  font-family: var(--serif);
+  font-size: 19px;
+  line-height: 1.5;
+  max-width: 60ch;
+  color: var(--ink-2);
+  font-weight: 350;
+  font-variation-settings: 'opsz' 14;
+}
+.last-updated {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 6px 12px;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--ink-2);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ============ MATERIALS PAGE ============ */
+.cat-section { padding: 40px 0; border-top: 1px solid var(--rule); }
+.cat-section:first-of-type { border-top: none; padding-top: 20px; }
+.cat-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.cat-header h2 {
+  font-family: var(--serif);
+  font-size: clamp(26px, 3vw, 38px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-variation-settings: 'opsz' 144;
+}
+.cat-header h2 em { font-style: italic; color: var(--accent); font-weight: 300; }
+.cat-header .count {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ink-3);
+}
+.doc-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.doc {
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  padding: 22px 26px;
+  text-decoration: none;
+  color: var(--ink);
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  transition: transform .2s, box-shadow .2s, border-color .2s, background .2s;
+  position: relative;
+}
+.doc:hover {
+  background: var(--paper);
+  border-color: var(--ink);
+  transform: translateY(-2px);
+  box-shadow: 4px 5px 0 -2px var(--ink);
+}
+.doc .file-type {
+  flex-shrink: 0;
+  width: 44px;
+  height: 52px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  position: relative;
+}
+.doc .file-type::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 10px;
+  height: 10px;
+  background: var(--paper-2);
+  border-left: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.doc:hover .file-type { background: var(--paper-2); }
+.doc .body { flex: 1; min-width: 0; }
+.doc h4 {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.3;
+  margin-bottom: 5px;
+  font-variation-settings: 'opsz' 18;
+  letter-spacing: -0.005em;
+}
+.doc .meta {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.doc .download-arrow {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  font-size: 16px;
+  color: var(--ink-3);
+  transition: color .2s, transform .2s;
+}
+.doc:hover .download-arrow { color: var(--accent); transform: translate(2px, -2px); }
+.latest-badge {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 7px;
+  margin-left: 8px;
+  vertical-align: 2px;
+  font-weight: 500;
+}
+@media (max-width: 720px) {
+  .doc-list { grid-template-columns: 1fr; }
+}
+
+/* pending document card — visually distinct, not clickable */
+.doc.pending {
+  cursor: default;
+  opacity: 0.72;
+  background: transparent;
+  border-style: dashed;
+}
+.doc.pending:hover {
+  background: transparent;
+  border-color: var(--rule);
+  transform: none;
+  box-shadow: none;
+}
+.doc.pending .file-type {
+  color: var(--ink-3);
+  background: transparent;
+}
+.doc.pending:hover .file-type { background: transparent; }
+.doc.pending .pending-badge {
+  display: inline-block;
+  background: transparent;
+  color: var(--ink-3);
+  border: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  margin-left: 8px;
+  vertical-align: 2px;
+  font-weight: 500;
+}
+.doc.pending .download-arrow { display: none; }
+
+/* ============ PUBLICATION CARDS ============ */
+.pub {
+  border-top: 1px solid var(--rule);
+  padding: 36px 0;
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 32px;
+}
+.pub:last-child { border-bottom: 1px solid var(--rule); }
+.pub-year {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--accent);
+  line-height: 1;
+  padding-top: 4px;
+  font-variation-settings: 'opsz' 144;
+}
+.pub-body { max-width: 76ch; }
+.pub h3 {
+  font-family: var(--serif);
+  font-size: clamp(20px, 1.8vw, 26px);
+  font-weight: 400;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  font-variation-settings: 'opsz' 36;
+  margin-bottom: 10px;
+  color: var(--ink);
+}
+.pub .authors {
+  font-size: 14px;
+  color: var(--ink-2);
+  margin-bottom: 4px;
+}
+.pub .journal {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14.5px;
+  color: var(--ink-3);
+  margin-bottom: 18px;
+}
+.pub .abstract {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--ink-2);
+  margin-bottom: 18px;
+}
+.pub .pub-links {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.pub .pub-links a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 1px;
+  transition: border-color .2s;
+}
+.pub .pub-links a:hover { border-color: var(--accent); }
+@media (max-width: 720px) {
+  .pub { grid-template-columns: 1fr; gap: 12px; }
+}
+
+/* ============ FAQ ============ */
+.faq-section { margin-bottom: 64px; }
+.faq-section h2 {
+  font-family: var(--serif);
+  font-size: clamp(26px, 3vw, 38px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-variation-settings: 'opsz' 144;
+  margin-bottom: 28px;
+}
+.faq-section h2 em { font-style: italic; color: var(--accent); font-weight: 300; }
+.faq-item {
+  border-top: 1px solid var(--rule);
+  padding: 22px 0;
+}
+.faq-section .faq-item:last-child { border-bottom: 1px solid var(--rule); }
+.faq-item summary {
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--ink);
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  font-variation-settings: 'opsz' 18;
+  cursor: pointer;
+  letter-spacing: -0.005em;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: '+';
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 300;
+  line-height: 0.9;
+  color: var(--accent);
+  transition: transform .35s cubic-bezier(.2,.8,.2,1);
+  flex-shrink: 0;
+}
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item .answer {
+  margin-top: 14px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--ink-2);
+  max-width: 72ch;
+}
+.faq-item .answer a { color: var(--accent); }
+.faq-item .answer p { margin-bottom: 10px; }
+.faq-item .answer p:last-child { margin-bottom: 0; }
+.faq-item .answer ol {
+  margin: 10px 0 0 22px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.faq-item .answer ol li {
+  padding-left: 4px;
+  line-height: 1.55;
+}
+.faq-item .answer strong { color: var(--ink); font-weight: 600; }
+
+/* ============ ASSESSMENT BATTERY ============ */
+.battery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin: 32px 0 40px;
+}
+.battery-group {
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  padding: 26px 28px 22px;
+}
+.battery-label {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--rule);
+  font-weight: 500;
+}
+.battery-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.5;
+}
+.battery-list li {
+  padding: 9px 0;
+  border-bottom: 1px dashed var(--rule);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.battery-list li:last-child { border-bottom: none; }
+.battery-list strong {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--ink);
+  font-variation-settings: 'opsz' 18;
+  letter-spacing: -0.005em;
+}
+.battery-list span {
+  font-size: 13px;
+  color: var(--ink-3);
+  line-height: 1.4;
+}
+@media (max-width: 720px) {
+  .battery { grid-template-columns: 1fr; gap: 24px; }
+}
+
+.glossary {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 36px 48px;
+  margin-top: 8px;
+}
+.glossary dt {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--ink);
+  font-variation-settings: 'opsz' 18;
+  letter-spacing: -0.005em;
+  padding-top: 4px;
+}
+.glossary dt em {
+  font-style: italic;
+  color: var(--accent);
+  display: block;
+  font-size: 13px;
+  font-family: var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 2px;
+  font-variation-settings: normal;
+}
+.glossary dd {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--ink-2);
+  border-top: 1px dashed var(--rule);
+  padding-top: 16px;
+}
+.glossary dt {
+  border-top: 1px dashed var(--rule);
+  padding-top: 16px;
+}
+.glossary > *:first-child,
+.glossary > *:nth-child(2) {
+  border-top: none;
+  padding-top: 0;
+}
+@media (max-width: 720px) {
+  .glossary { grid-template-columns: 1fr; gap: 8px 0; }
+  .glossary dd { padding-top: 4px; border-top: none; padding-bottom: 16px; }
+}
+
+/* ============ HELPER CALLOUT ============ */
+.callout {
+  margin: 40px 0;
+  padding: 26px 30px;
+  background: var(--paper-2);
+  border-left: 3px solid var(--accent);
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--ink-2);
+  max-width: 72ch;
+}
+.callout strong { color: var(--ink); font-weight: 600; }
+
+/* anchor link list inside about page */
+.toc {
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  padding: 24px 28px;
+  margin-bottom: 56px;
+}
+.toc h4 {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+.toc ol { list-style: none; counter-reset: toc; column-count: 2; column-gap: 32px; }
+.toc li { counter-increment: toc; margin-bottom: 8px; break-inside: avoid; }
+.toc a {
+  text-decoration: none;
+  color: var(--ink-2);
+  font-size: 15px;
+  font-family: var(--serif);
+  font-variation-settings: 'opsz' 14;
+  transition: color .2s;
+}
+.toc a::before {
+  content: counter(toc, decimal-leading-zero) " ";
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  margin-right: 8px;
+}
+.toc a:hover { color: var(--accent); }
+@media (max-width: 720px) { .toc ol { column-count: 1; } }
+
+/* page block headings for long content */
+.long-content { max-width: 72ch; }
+.long-content h2 {
+  font-family: var(--serif);
+  font-size: clamp(26px, 3vw, 38px);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-variation-settings: 'opsz' 144;
+  margin: 56px 0 18px;
+  color: var(--ink);
+  scroll-margin-top: 88px;
+}
+.long-content h2:first-child { margin-top: 0; }
+.long-content h2 em { font-style: italic; color: var(--accent); font-weight: 300; }
+.long-content h3 {
+  font-family: var(--serif);
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 1.25;
+  margin: 32px 0 12px;
+  color: var(--ink);
+  font-variation-settings: 'opsz' 36;
+}
+.long-content p {
+  font-family: var(--serif);
+  font-size: 17.5px;
+  line-height: 1.62;
+  color: var(--ink-2);
+  margin-bottom: 18px;
+  font-variation-settings: 'opsz' 14;
+  font-weight: 350;
+}
+.long-content em { color: var(--accent); font-style: italic; }
+.long-content strong { color: var(--ink); font-weight: 500; }
+.long-content ul {
+  margin: 0 0 22px 24px;
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink-2);
+  font-weight: 350;
+  font-variation-settings: 'opsz' 14;
+}
+.long-content ul li { margin-bottom: 8px; }
+.long-content blockquote {
+  border-left: 3px solid var(--accent);
+  padding: 6px 0 6px 22px;
+  margin: 22px 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--ink);
+  font-weight: 350;
+  font-variation-settings: 'opsz' 18;
+  line-height: 1.5;
+}
+.long-content blockquote cite {
+  display: block;
+  font-style: normal;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+.fade-up { animation: fadeUp .7s cubic-bezier(.2,.8,.2,1) backwards; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============ MOBILE REFINEMENTS ============
+   Keep large display type from visually bashing the screen edges on phones.
+   Lower the min font-sizes on the big headlines + tighten vertical rhythm. */
+@media (max-width: 540px) {
+  .hero { padding-top: 64px; padding-bottom: 56px; }
+  .hero h1 { font-size: clamp(34px, 9vw, 60px); line-height: 1.02; letter-spacing: -0.025em; }
+  .hero .lede { font-size: 17px; }
+  .page-header { padding-top: 64px; padding-bottom: 40px; }
+  .page-header h1 { font-size: clamp(36px, 10vw, 60px); line-height: 1.02; }
+  .page-header p { font-size: 17px; }
+  .section-title { font-size: clamp(28px, 7.6vw, 48px); line-height: 1.08; margin-bottom: 36px; }
+  section.block { padding-top: 64px; padding-bottom: 64px; }
+  .landing-h1 { font-size: 44px; }
+  .dark-band { padding-top: 64px; padding-bottom: 64px; }
+  .dark-band h2 { font-size: clamp(30px, 8vw, 48px); }
+  .glance { padding-top: 40px; padding-bottom: 40px; }
+  .resources-header h1,
+  .materials-header h1 { font-size: clamp(38px, 10vw, 62px); }
+}
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="wrap">
+    <a href="#/" class="brand" data-link><svg class="lone-star" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="80" height="80" fill="#002868"/><g transform="translate(40 42)"><path d="M 0 -22 L 6.47 -6.8 L 20.93 -6.8 L 9.19 2.6 L 13.66 17.4 L 0 8.25 L -13.66 17.4 L -9.19 2.6 L -20.93 -6.8 L -6.47 -6.8 Z" fill="#FAF7F0"/></g></svg><span class="wordmark">STAR-C <em>RCT</em></span></a>
+    <ul class="nav-links">
+      <li><a href="#/" data-link data-route="/">Home</a></li>
+      <li><a href="#/about" data-link data-route="/about">About</a></li>
+      <li><a href="#/materials" data-link data-route="/materials">Materials</a></li>
+      <li><a href="#/publications" data-link data-route="/publications">Publications</a></li>
+      <li><a href="#/clinicians" data-link data-route="/clinicians">For Clinicians</a></li>
+    </ul>
+    <span class="status-pill"><span class="dot"></span>Active Study</span>
+  </div>
+</nav>
+
+<!-- =============== HOME =============== -->
+<main id="page-home" class="page active">
+
+  <section class="hero wrap">
+    <div class="kicker fade-up" style="animation-delay:.05s">Study Team Resource Site</div>
+    <h1 class="fade-up" style="animation-delay:.12s">
+      Cognitive rehabilitation for <em>mTBI,</em> in person and by <em>telehealth.</em>
+    </h1>
+    <p class="lede fade-up" style="animation-delay:.28s">
+      STAR-C is a three-arm randomized controlled trial comparing in-person STAR-C, telehealth STAR-C, and a wait-list control, across two military treatment facilities. Enrolling 222 patients with a history of mTBI.
+    </p>
+    <div class="hero-cta fade-up" style="animation-delay:.42s">
+      <a href="#/materials" data-link class="btn btn-primary">Clinician materials <span class="arrow">→</span></a>
+      <a href="#/about" data-link class="btn btn-ghost">About the study</a>
+    </div>
+  </section>
+
+  <section class="glance">
+    <div class="wrap glance-grid">
+      <div class="glance-item">
+        <div class="label">Design</div>
+        <div class="value">3<em>-arm</em></div>
+        <div class="sub">in-person, tele, control</div>
+      </div>
+      <div class="glance-item">
+        <div class="label">Enrollment</div>
+        <div class="value">222</div>
+        <div class="sub">target n</div>
+      </div>
+      <div class="glance-item">
+        <div class="label">Sites</div>
+        <div class="value">2</div>
+        <div class="sub">military treatment facilities</div>
+      </div>
+      <div class="glance-item">
+        <div class="label">Follow-up</div>
+        <div class="value">3<em>mo</em></div>
+        <div class="sub">post-treatment</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block wrap">
+    <div class="section-label">Quick access</div>
+    <h2 class="section-title">Find what you need <em>fast.</em></h2>
+    <div class="quick-grid">
+      <a href="#/materials" data-link class="quick">
+        <div class="num">01</div>
+        <h4>Clinician materials</h4>
+        <p>Current manuals, instruction documents, assessment tools, and schedules used in study delivery.</p>
+        <div class="go">Browse →</div>
+      </a>
+      <a href="#/about" data-link class="quick">
+        <div class="num">02</div>
+        <h4>About the study</h4>
+        <p>Three-arm RCT design, specific aims, theoretical basis, and the protocol's published precursor.</p>
+        <div class="go">Read →</div>
+      </a>
+      <a href="#/publications" data-link class="quick">
+        <div class="num">03</div>
+        <h4>Publications</h4>
+        <p>Peer-reviewed papers on the STAR-C protocol, the C4 treatment-planning tool, and related work.</p>
+        <div class="go">View →</div>
+      </a>
+      <a href="#/clinicians" data-link class="quick">
+        <div class="num">04</div>
+        <h4>For clinicians</h4>
+        <p>FAQ, glossary of terms, and a starting guide for clinicians new to the protocol or the study.</p>
+        <div class="go">Reference →</div>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a href="#/" class="brand" data-link><svg class="lone-star" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="80" height="80" fill="#002868"/><g transform="translate(40 42)"><path d="M 0 -22 L 6.47 -6.8 L 20.93 -6.8 L 9.19 2.6 L 13.66 17.4 L 0 8.25 L -13.66 17.4 L -9.19 2.6 L -20.93 -6.8 L -6.47 -6.8 Z" fill="#FAF7F0"/></g></svg><span class="wordmark">STAR-C <em>RCT</em></span></a>
+          <p>A three-arm randomized controlled trial of cognitive rehabilitation for adults with a history of mild traumatic brain injury.</p>
+        </div>
+        <div class="foot-col">
+          <h5>Site</h5>
+          <a href="#/" data-link>Home</a>
+          <a href="#/about" data-link>About</a>
+          <a href="#/materials" data-link>Materials</a>
+        </div>
+        <div class="foot-col">
+          <h5>Reference</h5>
+          <a href="#/publications" data-link>Publications</a>
+          <a href="#/clinicians" data-link>For Clinicians</a>
+        </div>
+        <div class="foot-col">
+          <h5>Internal</h5>
+          <a href="mailto:mrittel@hjf.org">Contact the data manager</a>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>STAR-C RCT · Study Team Resource</span>
+        <span>Updated November 2026</span>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<!-- =============== ABOUT =============== -->
+<main id="page-about" class="page">
+  <section class="page-header wrap">
+    <div class="kicker">About the study</div>
+    <h1>The <em>STAR-C</em> RCT.</h1>
+    <p>A three-arm randomized controlled trial comparing in-person STAR-C, telehealth STAR-C, and a wait-list control, in adults with a history of mild traumatic brain injury — building on the published STAR-C feasibility trial.</p>
+  </section>
+
+  <section class="block wrap">
+    <div class="split-grid">
+      <div class="long-content">
+
+        <div class="toc">
+          <h4>On this page</h4>
+          <ol>
+            <li><a href="#what">What is STAR-C</a></li>
+            <li><a href="#design">Trial design</a></li>
+            <li><a href="#aims">Specific aims</a></li>
+            <li><a href="#theory">Theoretical basis</a></li>
+            <li><a href="#measurement">What we measure</a></li>
+            <li><a href="#battery">Assessment battery</a></li>
+            <li><a href="#origins">Origins of the protocol</a></li>
+          </ol>
+        </div>
+
+        <h2 id="what">What is <em>STAR-C</em></h2>
+        <p>STAR-C — the <strong>Symptom-Targeted Approach to Rehabilitation for Concussion</strong> — is a brief, strategy-based cognitive rehabilitation protocol for adults with a history of mild traumatic brain injury (mTBI) and persistent everyday cognitive complaints. The protocol was developed and pilot-tested over a previous three-year pragmatic trial; the current RCT moves it into a controlled comparison and tests delivery by telehealth.</p>
+        <p>Therapy is symptom-focused: the goal is to reduce the cognitive challenges patients report in everyday life. Targets are negotiated collaboratively between clinician and patient and scaled using <strong>Goal Attainment Scaling</strong>.</p>
+
+        <h2 id="design">Trial <em>design</em></h2>
+        <p>The current RCT is a <strong>three-arm trial</strong> across two military treatment facilities:</p>
+        <ul>
+          <li><strong>In-person STAR-C</strong></li>
+          <li><strong>Telehealth STAR-C</strong></li>
+          <li><strong>Wait-list control</strong></li>
+        </ul>
+        <p>Target enrollment is <strong>222 patients</strong>. Outcomes are assessed immediately post-treatment and at one- and three-month follow-up. Recruitment began September 2025, with primary completion estimated December 2026 and study completion estimated August 2028.</p>
+
+        <h2 id="aims">Specific <em>aims</em></h2>
+        <p>The protocol specifies four aims:</p>
+        <p><strong>Aim 1 (primary).</strong> Evaluate the effectiveness of STAR-C. The hypothesis is that both in-person and telehealth STAR-C will lead to a greater decrease in everyday cognitive complaints (measured on the C4) compared to the wait-list control.</p>
+        <p><strong>Aim 2 (secondary).</strong> Evaluate maintenance of treatment effects using a practice-based evidence approach — what proportion of treatment effects on the C4 and Goal Attainment Scaling are maintained at three-month follow-up, for each arm.</p>
+        <p><strong>Aim 3 (exploratory).</strong> Explore factors associated with heterogeneity in treatment response — what prevented some participants from achieving or maintaining a ≥2-point improvement on the C4, and what contributed when participants did meet or exceed their GAS targets.</p>
+        <p><strong>Aim 4 (implementation).</strong> Use stakeholder input from clinicians, administrators, and patients — through capacity assessment and after-action review — to generate an implementation package for clinics interested in adopting STAR-C. Clinician ratings of acceptability, appropriateness, and feasibility are captured using the <em>AIM/IAM/FIM</em> measures.</p>
+
+        <h2 id="theory">Theoretical <em>basis</em></h2>
+        <p>STAR-C draws on four converging frameworks:</p>
+        <ul>
+          <li><strong>Rehabilitation Treatment Specification System (RTSS).</strong> A framework for naming the active ingredients of a rehabilitation treatment — what the clinician does, why, and how it is intended to produce change.</li>
+          <li><strong>Neuroplasticity principles.</strong> Specifically the use of <em>high-dose, spaced practice</em> of tasks that are personally meaningful to the patient, rather than generic cognitive exercises.</li>
+          <li><strong>Health psychology.</strong> An explicit focus on self-efficacy and motivation as drivers of behavior change, not only on skill acquisition.</li>
+          <li><strong>Community-based participatory research.</strong> The protocol was co-designed with the clinicians who would deliver it, making implementation feasibility a design constraint from the start.</li>
+        </ul>
+
+        <h2 id="measurement">What we <em>measure</em></h2>
+        <p>The primary patient-reported outcome is the <strong>C4 questionnaire</strong> — Common Cognitive Complaints after Concussion — a 22-item activity-based self-report tool used both at intake (to identify treatment targets) and at follow-up (to measure change in everyday cognitive complaints).</p>
+        <p>Individualized treatment targets are tracked using <strong>Goal Attainment Scaling</strong>, which scales each target along a five-point gradient and allows progress to be quantified across participants with different specific goals.</p>
+        <p>Implementation outcomes (Aim 4) use validated measures of clinician-rated <em>acceptability, appropriateness, and feasibility</em> — the AIM, IAM, and FIM scales.</p>
+
+        <h2 id="battery">Assessment <em>battery</em></h2>
+        <p>The full assessment battery spans regulatory instruments, primary outcome measures, patient characteristics, and implementation measures — administered across six timepoints from screening through three-month follow-up. See the <a href="#/materials" data-link>Schedule of Events</a> in Materials for the full grid.</p>
+
+        <div class="battery">
+          <div class="battery-group">
+            <div class="battery-label">Primary outcomes · Aim 1</div>
+            <ul class="battery-list">
+              <li><strong>C4</strong> <span>Common Concussive Cognitive Complaints — primary patient-reported outcome</span></li>
+              <li><strong>PROMIS</strong> <span>General health-related quality of life</span></li>
+              <li><strong>GAS</strong> <span>Goal Attainment Scaling — individualized treatment target attainment</span></li>
+            </ul>
+          </div>
+
+          <div class="battery-group">
+            <div class="battery-label">Patient characteristics · Aim 2</div>
+            <ul class="battery-list">
+              <li><strong>Demographics</strong> <span>Baseline</span></li>
+              <li><strong>OSU-TBI-ID</strong> <span>Ohio State University TBI Identification Method — TBI history</span></li>
+              <li><strong>TBI history</strong> <span>Injury history, updated for changes at each timepoint</span></li>
+              <li><strong>Treatment history</strong> <span>Prior TBI and behavioral health care</span></li>
+              <li><strong>Current treatment</strong> <span>Pharmacological and non-pharmacological, updated per visit</span></li>
+              <li><strong>Computer games</strong> <span>Cognitive-training exposure, updated per visit</span></li>
+              <li><strong>WRAT-5 Word Reading</strong> <span>Estimated premorbid functioning</span></li>
+              <li><strong>NSI</strong> <span>Neurobehavioral Symptom Inventory</span></li>
+              <li><strong>SESx</strong> <span>Self Efficacy for Symptom Management</span></li>
+              <li><strong>PCL-5</strong> <span>PTSD Checklist</span></li>
+              <li><strong>PHQ-8</strong> <span>Patient Health Questionnaire — depression</span></li>
+              <li><strong>ESS</strong> <span>Epworth Sleepiness Scale</span></li>
+              <li><strong>NIH Toolbox Cognition</strong> <span>Objective cognitive battery</span></li>
+              <li><strong>IOP-29 &amp; IOP-M</strong> <span>Inventory of Problems — symptom validity</span></li>
+              <li><strong>TOMM</strong> <span>Test of Memory Malingering — performance validity</span></li>
+            </ul>
+          </div>
+
+          <div class="battery-group">
+            <div class="battery-label">Implementation &amp; qualitative · Aim 3</div>
+            <ul class="battery-list">
+              <li><strong>Patient interview</strong> <span>Semi-structured, post-treatment</span></li>
+              <li><strong>Stakeholder interview</strong> <span>Clinicians and administrators</span></li>
+              <li><strong>AIM / IAM / FIM</strong> <span>Clinician-rated acceptability, appropriateness, feasibility</span></li>
+            </ul>
+          </div>
+
+          <div class="battery-group">
+            <div class="battery-label">Regulatory</div>
+            <ul class="battery-list">
+              <li><strong>Consent</strong> <span>Informed Consent and HIPAA Authorization at screening</span></li>
+              <li><strong>Randomization</strong> <span>At baseline (and again post-waitlist for control arm)</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <h2 id="origins">Origins of the <em>protocol</em></h2>
+        <p>The STAR-C protocol was developed and pilot-tested in a prior three-year pragmatic clinical trial with U.S. service members and veterans. That feasibility work — describing the development, theoretical basis, and pilot outcomes of the intervention — is the published precursor to the current RCT (see <a href="#/publications" data-link>Publications</a>). In the pilot, treatment fidelity exceeded 95%; participants and clinicians rated the protocol as acceptable, feasible, and appropriate; and most participants attained and maintained their treatment targets. The authors concluded that efficacy should be tested in a controlled design — which is the current trial.</p>
+
+      </div>
+
+      <aside class="sidecard">
+        <h3>Study at a glance</h3>
+        <div class="fact"><div class="k">Protocol</div><div class="v">STAR-C — Symptom-Targeted Approach to Rehabilitation for Concussion</div></div>
+        <div class="fact"><div class="k">Design</div><div class="v">Three-arm RCT — in-person, telehealth, wait-list control</div></div>
+        <div class="fact"><div class="k">Enrollment</div><div class="v">222 participants (target)</div></div>
+        <div class="fact"><div class="k">Sites</div><div class="v">Two military treatment facilities</div></div>
+        <div class="fact"><div class="k">Follow-up</div><div class="v">Immediate, 1-month, 3-month</div></div>
+        <div class="fact"><div class="k">Delivered by</div><div class="v">Trained SLPs and OTs</div></div>
+        <div class="fact"><div class="k">Primary outcome</div><div class="v">C4 questionnaire</div></div>
+        <div class="fact"><div class="k">Goal framework</div><div class="v">Goal Attainment Scaling</div></div>
+        <div class="fact"><div class="k">Started</div><div class="v">September 2025</div></div>
+        <div class="fact"><div class="k">Registration</div><div class="v">NCT06855186</div></div>
+      </aside>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a href="#/" class="brand" data-link><svg class="lone-star" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="80" height="80" fill="#002868"/><g transform="translate(40 42)"><path d="M 0 -22 L 6.47 -6.8 L 20.93 -6.8 L 9.19 2.6 L 13.66 17.4 L 0 8.25 L -13.66 17.4 L -9.19 2.6 L -20.93 -6.8 L -6.47 -6.8 Z" fill="#FAF7F0"/></g></svg><span class="wordmark">STAR-C <em>RCT</em></span></a>
+          <p>A three-arm randomized controlled trial of cognitive rehabilitation for adults with a history of mild traumatic brain injury.</p>
+        </div>
+        <div class="foot-col">
+          <h5>Site</h5>
+          <a href="#/" data-link>Home</a>
+          <a href="#/about" data-link>About</a>
+          <a href="#/materials" data-link>Materials</a>
+        </div>
+        <div class="foot-col">
+          <h5>Reference</h5>
+          <a href="#/publications" data-link>Publications</a>
+          <a href="#/clinicians" data-link>For Clinicians</a>
+        </div>
+        <div class="foot-col">
+          <h5>Internal</h5>
+          <a href="mailto:mrittel@hjf.org">Contact the data manager</a>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>STAR-C RCT · Study Team Resource</span>
+        <span>Updated November 2026</span>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<!-- =============== MATERIALS =============== -->
+<main id="page-materials" class="page">
+  <section class="page-header wrap">
+    <div class="kicker">For study clinicians · Internal use</div>
+    <h1>Clinician <em>materials.</em></h1>
+    <p>Current versions of the manuals, instruction documents, and assessment tools used in the STAR-C RCT. Always confirm you're using the latest release before clinical use.</p>
+    <div class="last-updated">⟳ Last updated November 2026</div>
+  </section>
+
+  <div class="wrap">
+
+    <section class="cat-section">
+      <div class="cat-header">
+        <h2>Primary <em>manuals</em></h2>
+        <span class="count">2 documents</span>
+      </div>
+      <div class="doc-list">
+        <a href="documents/STAR-C_RCT_Clinician_Resource_Manual_v2.docx" class="doc">
+          <div class="file-type">DOCX</div>
+          <div class="body">
+            <h4>Clinician Resource Manual<span class="latest-badge">v2 — current</span></h4>
+            <div class="meta">Updated 2025 · .docx</div>
+          </div>
+          <div class="download-arrow">↓</div>
+        </a>
+        <a href="documents/STAR-C_RCT_Clinician_Instruction_Manual_v1_4_20260528.docx" class="doc">
+          <div class="file-type">DOCX</div>
+          <div class="body">
+            <h4>Clinician Instruction Manual<span class="latest-badge">v1.4 — current</span></h4>
+            <div class="meta">28 May 2026 · .docx</div>
+          </div>
+          <div class="download-arrow">↓</div>
+        </a>
+      </div>
+    </section>
+
+    <section class="cat-section">
+      <div class="cat-header">
+        <h2>Implementation <em>tools</em></h2>
+        <span class="count">3 documents</span>
+      </div>
+      <div class="doc-list">
+        <a href="documents/STAR-C_RCT_Session_Checklists_v3_20260625.docx" class="doc">
+          <div class="file-type">DOCX</div>
+          <div class="body">
+            <h4>Session Checklists<span class="latest-badge">v3 — current</span></h4>
+            <div class="meta">25 June 2026 · .docx</div>
+          </div>
+          <div class="download-arrow">↓</div>
+        </a>
+        <a href="documents/STAR-C_RCT_Ingredient_Checklist_v2025June.docx" class="doc">
+          <div class="file-type">DOCX</div>
+          <div class="body">
+            <h4>Ingredient Checklist<span class="latest-badge">current</span></h4>
+            <div class="meta">June 2025 · .docx</div>
+          </div>
+          <div class="download-arrow">↓</div>
+        </a>
+        <a href="documents/STAR-C2_RCT_Rulers.docx" class="doc">
+          <div class="file-type">DOCX</div>
+          <div class="body">
+            <h4>STAR-C RCT Rulers</h4>
+            <div class="meta">Assessment tool · .docx</div>
+          </div>
+          <div class="download-arrow">↓</div>
+        </a>
+      </div>
+    </section>
+
+    <section class="cat-section">
+      <div class="cat-header">
+        <h2>Schedules &amp; <em>timelines</em></h2>
+        <span class="count">1 document</span>
+      </div>
+      <div class="doc-list">
+        <a href="documents/Schedule_of_Events_STAR-C_RCT_20250915.pdf" class="doc">
+          <div class="file-type">PDF</div>
+          <div class="body">
+            <h4>Schedule of Events</h4>
+            <div class="meta">15 Sep 2025 · .pdf</div>
+          </div>
+          <div class="download-arrow">↓</div>
+        </a>
+      </div>
+    </section>
+
+    <div class="callout">
+      <strong>Can't find what you need?</strong> If a document referenced in your training isn't listed here, or you suspect a newer version exists, contact the data manager. Older versions are archived but not displayed on this page — request access by email.
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a href="#/" class="brand" data-link><svg class="lone-star" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="80" height="80" fill="#002868"/><g transform="translate(40 42)"><path d="M 0 -22 L 6.47 -6.8 L 20.93 -6.8 L 9.19 2.6 L 13.66 17.4 L 0 8.25 L -13.66 17.4 L -9.19 2.6 L -20.93 -6.8 L -6.47 -6.8 Z" fill="#FAF7F0"/></g></svg><span class="wordmark">STAR-C <em>RCT</em></span></a>
+          <p>A three-arm randomized controlled trial of cognitive rehabilitation for adults with a history of mild traumatic brain injury.</p>
+        </div>
+        <div class="foot-col">
+          <h5>Site</h5>
+          <a href="#/" data-link>Home</a>
+          <a href="#/about" data-link>About</a>
+          <a href="#/materials" data-link>Materials</a>
+        </div>
+        <div class="foot-col">
+          <h5>Reference</h5>
+          <a href="#/publications" data-link>Publications</a>
+          <a href="#/clinicians" data-link>For Clinicians</a>
+        </div>
+        <div class="foot-col">
+          <h5>Internal</h5>
+          <a href="mailto:mrittel@hjf.org">Contact the data manager</a>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>STAR-C RCT · Study Team Resource</span>
+        <span>Updated November 2026</span>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<!-- =============== PUBLICATIONS =============== -->
+<main id="page-publications" class="page">
+  <section class="page-header wrap">
+    <div class="kicker">Peer-reviewed publications</div>
+    <h1>Publications &amp; <em>evidence.</em></h1>
+    <p>Peer-reviewed work that grounds the current RCT — the published feasibility pilot of the STAR-C protocol, and the parallel development of the C4 treatment-planning questionnaire.</p>
+  </section>
+
+  <div class="wrap" style="padding-bottom: 80px;">
+
+    <article class="pub">
+      <div class="pub-year">2025</div>
+      <div class="pub-body">
+        <h3>Development and Pilot Implementation of a Theory-Based Cognitive Rehabilitation Protocol for Adults With Chronic Cognitive Complaints After Mild Traumatic Brain Injury</h3>
+        <div class="authors">Turkstra LS, Ray MR, LeBlanc MM, Lu LH, Curtiss G, Bowles AO, Eapen BC, Cooper DB.</div>
+        <div class="journal">American Journal of Speech-Language Pathology · 34(3S):1789–1806 · Epub 24 Jan 2025</div>
+        <div class="abstract"><strong>The published precursor to the current RCT.</strong> Describes the development and pilot feasibility of STAR-C — a brief, intensive, strategy-based cognitive rehabilitation intervention. The pilot was a 3-year pragmatic clinical trial; STAR-C was delivered to 53 U.S. service members and veterans by trained SLPs and OTs, with treatment fidelity above 95%. Participants and clinicians rated the protocol as acceptable, feasible, and appropriate, and most participants attained and maintained their treatment targets. Concludes that efficacy should be tested in a controlled study — which is the current STAR-C RCT.</div>
+        <div class="pub-links">
+          <a href="https://pubmed.ncbi.nlm.nih.gov/39853133/" target="_blank" rel="noopener">PubMed →</a>
+          <a href="https://pubs.asha.org/doi/10.1044/2024_AJSLP-24-00306" target="_blank" rel="noopener">AJSLP (journal) →</a>
+          <a href="https://asha.figshare.com/articles/online_resource/Cognitive_rehabilitation_for_mTBI_Turkstra_et_al_2025_/28222613" target="_blank" rel="noopener">Figshare (supplements) →</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="pub">
+      <div class="pub-year">2025</div>
+      <div class="pub-body">
+        <h3>Development of the Common Cognitive Complaints after Concussion (C4) questionnaire: a treatment-planning tool for military service members and veterans with mild traumatic brain injury</h3>
+        <div class="authors">McDonald MA, Lu LH, Curtiss G, Cooper DB, Bowles AO, Ray MR, LeBlanc MM, Eapen BC, Shura R, Turkstra LS.</div>
+        <div class="journal">Frontiers in Neurology · 22 July 2025</div>
+        <div class="abstract">Describes the development of the C4 — a 22-item activity-based self-report questionnaire designed to identify treatment targets for cognitive rehabilitation in adults with mTBI. Item development was guided by SLP and OT experts. Face and content validity were established through expert review and use within the STAR-C feasibility trial. The C4 is the primary patient-reported outcome measure in the current RCT.</div>
+        <div class="pub-links">
+          <a href="https://www.frontiersin.org/journals/neurology/articles/10.3389/fneur.2025.1621265/full" target="_blank" rel="noopener">Frontiers (open access) →</a>
+          <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12325049/" target="_blank" rel="noopener">PubMed Central →</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="pub">
+      <div class="pub-year">2026</div>
+      <div class="pub-body">
+        <h3>Symptom-targeted rehabilitation for cognitive complaints after concussion in Canadian Armed Forces and Royal Canadian Mounted Police Veterans: A feasibility, pilot, randomized controlled trial</h3>
+        <div class="authors">Turkstra LS, Mercier J-M, McKenna B, Burles C, Gu&eacute;vremont B, Gibbins A, Brouwer M, Nisbet J, Prestwood D, Viola S, Bosch J.</div>
+        <div class="journal">Journal of Military, Veteran and Family Health &middot; 1 October 2026 &middot; Advance Access</div>
+        <div class="abstract"><strong>Companion work in a Canadian population.</strong> A feasibility and pilot RCT of STAR-C in Canadian Armed Forces and Royal Canadian Mounted Police Veterans with cognitive complaints after concussion, led by the same lead author as the US pilot and a collaborator on the current STAR-C RCT. Together with the 2025 AJSLP pilot, it broadens the evidence base for the protocol across military and veteran populations in two countries &mdash; informing the design of the current US controlled trial.</div>
+        <div class="pub-links">
+          <a href="https://utppublishing.com/doi/full/10.3138/jmvfh-2025-0099" target="_blank" rel="noopener">UTP Journals &rarr;</a>
+          <a href="https://doi.org/10.3138/jmvfh-2025-0099" target="_blank" rel="noopener">DOI &rarr;</a>
+        </div>
+      </div>
+    </article>
+
+    <div class="callout">
+      <strong>Citing this work in publications, grants, or training materials?</strong> Pull citation strings from the journal pages linked above.
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a href="#/" class="brand" data-link><svg class="lone-star" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="80" height="80" fill="#002868"/><g transform="translate(40 42)"><path d="M 0 -22 L 6.47 -6.8 L 20.93 -6.8 L 9.19 2.6 L 13.66 17.4 L 0 8.25 L -13.66 17.4 L -9.19 2.6 L -20.93 -6.8 L -6.47 -6.8 Z" fill="#FAF7F0"/></g></svg><span class="wordmark">STAR-C <em>RCT</em></span></a>
+          <p>A three-arm randomized controlled trial of cognitive rehabilitation for adults with a history of mild traumatic brain injury.</p>
+        </div>
+        <div class="foot-col">
+          <h5>Site</h5>
+          <a href="#/" data-link>Home</a>
+          <a href="#/about" data-link>About</a>
+          <a href="#/materials" data-link>Materials</a>
+        </div>
+        <div class="foot-col">
+          <h5>Reference</h5>
+          <a href="#/publications" data-link>Publications</a>
+          <a href="#/clinicians" data-link>For Clinicians</a>
+        </div>
+        <div class="foot-col">
+          <h5>Internal</h5>
+          <a href="mailto:mrittel@hjf.org">Contact the data manager</a>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>STAR-C RCT · Study Team Resource</span>
+        <span>Updated November 2026</span>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<!-- =============== FOR CLINICIANS =============== -->
+<main id="page-clinicians" class="page">
+  <section class="page-header wrap">
+    <div class="kicker">Reference for clinicians</div>
+    <h1>For <em>clinicians.</em></h1>
+    <p>Frequently asked questions, a glossary of terms used in the STAR-C protocol and study documentation, and starting-point guidance for clinicians new to the protocol.</p>
+  </section>
+
+  <div class="wrap" style="padding-bottom: 80px;">
+
+    <section class="faq-section">
+      <h2>Getting <em>started</em></h2>
+
+      <details class="faq-item">
+        <summary>I'm new to the study team. Where should I start?</summary>
+        <div class="answer">Read the <a href="#/about" data-link>About the Study</a> page first for context on what STAR-C is and how the current RCT is designed. Then download the Clinician Resource Manual and Clinician Instruction Manual from the <a href="#/materials" data-link>Materials</a> page. Your trainer or supervisor will walk you through the protocol; this site is a reference, not a replacement for training.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Do I need formal training before delivering STAR-C?</summary>
+        <div class="answer">Yes. STAR-C is delivered by trained SLPs and OTs. Reading the manuals is not sufficient — clinicians complete protocol-specific training before delivering the intervention to study participants. Contact your study coordinator for the current training schedule.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>How long is the intervention?</summary>
+        <div class="answer">STAR-C is a brief, intensive intervention. Session count, frequency, and duration are specified in the Clinician Instruction Manual. Outcomes are assessed immediately post-treatment and again at one and three months.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>What's the difference between in-person and telehealth STAR-C?</summary>
+        <div class="answer">The two STAR-C arms in the current RCT deliver the same protocol — same active ingredients, same target-setting process, same goal scaling — but through different modalities. The trial is designed to test whether telehealth delivery is effective and to compare both delivery modes against a wait-list control. Clinicians follow the same Clinician Instruction Manual for both arms, with modality-specific guidance noted within it.</div>
+      </details>
+    </section>
+
+    <section class="faq-section">
+      <h2>Working with the <em>protocol</em></h2>
+
+      <details class="faq-item">
+        <summary>How are treatment targets identified?</summary>
+        <div class="answer">At intake, participants complete the C4 (Common Cognitive Complaints after Concussion) questionnaire — a 22-item self-report tool that maps everyday cognitive challenges. Targets are then negotiated collaboratively between clinician and participant and scaled using Goal Attainment Scaling.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>What is Goal Attainment Scaling and why do we use it?</summary>
+        <div class="answer">Goal Attainment Scaling (GAS) is a method for setting individualized, measurable treatment goals along a five-point gradient — from "much less than expected" to "much more than expected." It allows progress to be quantified across participants even when goals themselves are different. STAR-C uses GAS because the protocol is symptom-focused and targets are person-specific.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>How is fidelity tracked?</summary>
+        <div class="answer">Fidelity is tracked using the Session Checklists (see Materials). Clinicians complete a checklist per session capturing the active ingredients of the STAR-C protocol (drawn from the Rehabilitation Treatment Specification System). The implementation team reviews fidelity periodically.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Can I adapt the protocol to my patient?</summary>
+        <div class="answer">Goals and treatment activities are individualized by design — that's part of the protocol, not a deviation from it. However, structural elements (session count, target-setting process, use of the C4 and GAS, fidelity checklist) are not adaptable in the RCT context, since the trial is testing the protocol as specified. If you're uncertain whether a planned adaptation is in scope, consult your supervisor before the session.</div>
+      </details>
+    </section>
+
+    <section class="faq-section">
+      <h2>Withdrawals &amp; <em>protocol deviations</em></h2>
+
+      <details class="faq-item">
+        <summary>What counts as &ldquo;early withdrawal&rdquo;?</summary>
+        <div class="answer">Withdrawal <strong>after Session 2</strong> and before study end criteria are met &mdash; that is, before the patient has completed 10 sessions or achieved 3 treatment targets. Criteria for exclusion in Sessions 1 and 2 are specified separately in the <a href="#/materials" data-link>Clinician Instruction Manual</a> (Sections 2.1 and 2.1.3).</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>A patient wants to withdraw after Session 2 &mdash; what do I do?</summary>
+        <div class="answer">Document the patient&rsquo;s stated reason in the <strong>Field Comment Log</strong> in the Form Status section of the REDCap therapy session page, under &ldquo;Complete?&rdquo; That is the single location where withdrawal information is captured.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>I think a patient should be withdrawn &mdash; what are the steps?</summary>
+        <div class="answer">
+          <p>Before making a withdrawal decision after Session 2:</p>
+          <ol>
+            <li>Review the case with the Training Core PI (Dr. Turkstra).</li>
+            <li>If Dr. Turkstra recommends, bring the case to the clinician group for discussion and input before making a withdrawal decision.</li>
+            <li>If the decision is to withdraw, inform the site Clinical Research Coordinator and site PI.</li>
+            <li>Clearly document the rationale in the <strong>Field Comment Log</strong> (REDCap therapy session page &rarr; Form Status &rarr; &ldquo;Complete?&rdquo;). Include the factors you considered.</li>
+            <li>The site Clinical Research Coordinator then documents the rationale in the <strong>REDCap Patient Closeout Form</strong>.</li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Why does one-location documentation matter here?</summary>
+        <div class="answer">Keeping withdrawal information in a single spot in REDCap gives us clean, accurate reporting on recruitment and retention &mdash; important for study integrity and for sponsor and regulatory reporting.</div>
+      </details>
+    </section>
+
+    <section class="faq-section">
+      <h2>Materials &amp; <em>versioning</em></h2>
+
+      <details class="faq-item">
+        <summary>How do I know if I'm using the current version of a document?</summary>
+        <div class="answer">The <a href="#/materials" data-link>Materials</a> page lists only current versions. Each document shows its version number and date. If you have a document saved locally, compare its version to what's on this page before clinical use.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Where are older versions of documents?</summary>
+        <div class="answer">Older versions are archived but not displayed on the public Materials page. If you need a prior version for reference or audit, contact the data manager.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>What if I find an error in a manual?</summary>
+        <div class="answer">Report errors to your supervisor or the data manager. Corrections are issued as version updates and listed on the Materials page when published.</div>
+      </details>
+    </section>
+
+    <section class="faq-section">
+      <h2><em>Glossary</em></h2>
+      <p style="font-family: var(--serif); font-size: 16px; color: var(--ink-2); margin-bottom: 28px; max-width: 64ch; font-weight: 350; font-variation-settings: 'opsz' 14;">Acronyms and terms used across the STAR-C protocol, materials, and study documentation.</p>
+
+      <dl class="glossary">
+        <dt>STAR-C <em>name</em></dt>
+        <dd>Symptom-Targeted Approach to Rehabilitation for Concussion. The cognitive rehabilitation protocol developed and pilot-tested by the study team for adults with a history of mTBI and everyday cognitive complaints.</dd>
+
+        <dt>STAR-C RCT <em>current trial</em></dt>
+        <dd>The current three-arm randomized controlled trial testing in-person STAR-C, telehealth STAR-C, and wait-list control. Registered as NCT06855186.</dd>
+
+        <dt>In-person arm <em>condition</em></dt>
+        <dd>Standard STAR-C delivered face-to-face. One of three arms in the current RCT.</dd>
+
+        <dt>Telehealth arm <em>condition</em></dt>
+        <dd>STAR-C delivered remotely via telehealth, using the same protocol ingredients. One of three arms in the current RCT.</dd>
+
+        <dt>Wait-list control <em>condition</em></dt>
+        <dd>The comparison condition in the current RCT. Participants receive STAR-C after the wait period.</dd>
+
+        <dt>mTBI <em>condition</em></dt>
+        <dd>Mild traumatic brain injury, also called concussion. Inclusion is based on a history of mTBI and persistent everyday cognitive complaints.</dd>
+
+        <dt>C4 <em>primary outcome</em></dt>
+        <dd>Common Cognitive Complaints after Concussion. A 22-item activity-based self-report questionnaire used to identify treatment targets at intake and as the primary patient-reported outcome of the RCT.</dd>
+
+        <dt>GAS <em>method</em></dt>
+        <dd>Goal Attainment Scaling. A method for setting individualized, measurable treatment goals along a five-point gradient, allowing quantitative comparison across participants with different specific goals.</dd>
+
+        <dt>RTSS <em>framework</em></dt>
+        <dd>Rehabilitation Treatment Specification System. A framework for explicitly naming the active ingredients of a rehabilitation intervention — used in the development of STAR-C to specify what the clinician does, why, and how it is intended to produce change.</dd>
+
+        <dt>AIM / IAM / FIM <em>implementation measures</em></dt>
+        <dd>Acceptability of Intervention Measure, Intervention Appropriateness Measure, and Feasibility of Intervention Measure. Validated short scales used to capture clinician-rated implementation outcomes in Aim 4.</dd>
+
+        <dt>SLP <em>discipline</em></dt>
+        <dd>Speech-Language Pathologist. One of two clinical disciplines that delivers STAR-C in the study.</dd>
+
+        <dt>OT <em>discipline</em></dt>
+        <dd>Occupational Therapist. The second clinical discipline delivering STAR-C in the study.</dd>
+
+        <dt>Fidelity <em>concept</em></dt>
+        <dd>The degree to which a protocol is delivered as specified. Tracked in the current RCT via the Session Checklists. STAR-C pilot fidelity was above 95%.</dd>
+
+        <dt>Ingredient checklist <em>tool</em></dt>
+        <dd>A clinician-facing list of the active ingredients used in delivering STAR-C. Ingredients are the clinician&rsquo;s actions or objects the clinician provides to achieve the target change in function.</dd>
+
+        <dt>Session Checklists <em>tool</em></dt>
+        <dd>A per-session checklist completed by the clinician after delivering STAR-C, used to track fidelity to the specified protocol ingredients.</dd>
+
+        <dt>Early withdrawal <em>protocol event</em></dt>
+        <dd>Withdrawal from the study after Session 2 and before study end criteria are met (10 sessions completed or 3 treatment targets achieved). Captured in a single location in REDCap &mdash; see the <a href="#/clinicians" data-link>For Clinicians</a> FAQ for the full procedure.</dd>
+      </dl>
+    </section>
+
+    <div class="callout">
+      <strong>Term not listed?</strong> Submit additions or clarifications to the data manager. This glossary is maintained as a living reference for the study team.
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a href="#/" class="brand" data-link><svg class="lone-star" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="80" height="80" fill="#002868"/><g transform="translate(40 42)"><path d="M 0 -22 L 6.47 -6.8 L 20.93 -6.8 L 9.19 2.6 L 13.66 17.4 L 0 8.25 L -13.66 17.4 L -9.19 2.6 L -20.93 -6.8 L -6.47 -6.8 Z" fill="#FAF7F0"/></g></svg><span class="wordmark">STAR-C <em>RCT</em></span></a>
+          <p>A three-arm randomized controlled trial of cognitive rehabilitation for adults with a history of mild traumatic brain injury.</p>
+        </div>
+        <div class="foot-col">
+          <h5>Site</h5>
+          <a href="#/" data-link>Home</a>
+          <a href="#/about" data-link>About</a>
+          <a href="#/materials" data-link>Materials</a>
+        </div>
+        <div class="foot-col">
+          <h5>Reference</h5>
+          <a href="#/publications" data-link>Publications</a>
+          <a href="#/clinicians" data-link>For Clinicians</a>
+        </div>
+        <div class="foot-col">
+          <h5>Internal</h5>
+          <a href="mailto:mrittel@hjf.org">Contact the data manager</a>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>STAR-C RCT · Study Team Resource</span>
+        <span>Updated November 2026</span>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<script>
+const pages = {
+  '/':             document.getElementById('page-home'),
+  '/about':        document.getElementById('page-about'),
+  '/materials':    document.getElementById('page-materials'),
+  '/publications': document.getElementById('page-publications'),
+  '/clinicians':   document.getElementById('page-clinicians')
+};
+
+function routeFor(hash) {
+  if (!hash || hash === '#' || hash === '#/') return { route: '/', anchor: null };
+  // Match longest known route first
+  const routes = Object.keys(pages).sort((a,b) => b.length - a.length);
+  for (const r of routes) {
+    if (r === '/') continue;
+    if (hash === '#' + r || hash.startsWith('#' + r + '#')) {
+      const anchorIdx = hash.indexOf('#', 2);
+      return { route: r, anchor: anchorIdx > -1 ? hash.substring(anchorIdx + 1) : null };
+    }
+  }
+  // not a known route — treat as anchor on home
+  return { route: '/', anchor: hash.substring(1) };
+}
+
+function showPage(hash) {
+  const { route, anchor } = routeFor(hash);
+  Object.values(pages).forEach(p => p.classList.remove('active'));
+  pages[route].classList.add('active');
+
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.remove('active');
+    if (a.dataset.route === route) a.classList.add('active');
+  });
+
+  if (anchor) {
+    requestAnimationFrame(() => {
+      const el = document.getElementById(anchor);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  } else {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+}
+
+document.querySelectorAll('[data-link]').forEach(a => {
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    const href = a.getAttribute('href');
+    if (window.location.hash === href) showPage(href);
+    else window.location.hash = href;
+  });
+});
+
+window.addEventListener('hashchange', () => showPage(window.location.hash || '#/'));
+showPage(window.location.hash || '#/');
+</script>
+
+</body>
+</html>
